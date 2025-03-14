@@ -1,9 +1,11 @@
 // components/MainAppContainer.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, Button, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
 import SearchBar from './SearchBar';
 import RecipeList from './RecipeList';
 import RecipeDetail from './RecipeDetail';
+import Rating from './Rating';
+import Comments from './Comments';
 import { fetchRecipes } from '../services/RecipesApi';
 
 export default function MainAppContainer() {
@@ -13,7 +15,6 @@ export default function MainAppContainer() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  //useEffect is a React Hook that lets you synchronize a component with an external system api
   useEffect(() => {
     if (ingredients.trim() === '') {
       setRecipes([]);
@@ -43,7 +44,13 @@ export default function MainAppContainer() {
       {loading && <ActivityIndicator size="large" color="#0000ff" />}
       {error && <Text style={styles.error}>{error}</Text>}
       <RecipeList recipes={recipes} onSelect={setSelectedRecipe} />
-      {selectedRecipe && <RecipeDetail recipe={selectedRecipe} onClose={() => setSelectedRecipe(null)} />}
+      {selectedRecipe && (
+        <ScrollView contentContainerStyle={styles.detailContainer}>
+          <RecipeDetail recipe={selectedRecipe} onClose={() => setSelectedRecipe(null)} />
+          <Rating recipeId={selectedRecipe.idMeal} />
+          <Comments recipeId={selectedRecipe.idMeal} />
+        </ScrollView>
+      )}
     </View>
   );
 }
@@ -51,5 +58,6 @@ export default function MainAppContainer() {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, backgroundColor: '#fff' },
   title: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 10 },
-  error: { color: 'red', textAlign: 'center', marginBottom: 10 }
+  error: { color: 'red', textAlign: 'center', marginBottom: 10 },
+  detailContainer: { borderWidth: 5, borderColor: '#000', padding: 10, borderRadius: 10, marginTop: 20 }
 });

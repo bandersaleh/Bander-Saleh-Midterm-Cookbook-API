@@ -1,17 +1,13 @@
 // components/RecipeDetail.js
 import React from 'react';
-import { View, Text, Image, Button, StyleSheet, ScrollView } from 'react-native';
+import { ScrollView, View, Text, Image, Button, StyleSheet } from 'react-native';
 
 export default function RecipeDetail({ recipe, onClose }) {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Image source={{ uri: recipe.strMealThumb }} style={styles.image} />
       <Text style={styles.title}>{recipe.strMeal}</Text>
-      {recipe.strInstructions ? (
-        <Text style={styles.instructions}>{recipe.strInstructions}</Text>
-      ) : (
-        <Text style={styles.instructions}>No instructions available.</Text>
-      )}
+      <Text style={styles.instructions}>{recipe.strInstructions}</Text>
       <Button title="Close" onPress={onClose} />
     </ScrollView>
   );
@@ -19,7 +15,7 @@ export default function RecipeDetail({ recipe, onClose }) {
 
 const styles = StyleSheet.create({
   container: { padding: 20, backgroundColor: '#fff' },
-  image: { width: '50%', aspectRatio: 1, alignSelf: 'center', marginBottom: 10, resizeMode: 'contain' },
-  title: { fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 10 },
-  instructions: { fontSize: 16, textAlign: 'left', marginBottom: 10 }
+  image: { width: '50%', height: 200, alignSelf: 'center' },
+  title: { fontSize: 22, fontWeight: 'bold', textAlign: 'center', marginVertical: 10 },
+  instructions: { fontSize: 16, textAlign: 'center', marginVertical: 10 }
 });

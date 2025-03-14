@@ -1,21 +1,26 @@
-// ./components/RecipeList.js
+// components/RecipeList.js
 import React from 'react';
-import { FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import Rating from './Rating';
 
 export default function RecipeList({ recipes, onSelect }) {
+  const renderItem = ({ item }) => (
+    <TouchableOpacity style={styles.recipeItem} onPress={() => onSelect(item)}>
+      <Text style={styles.recipeName}>{item.strMeal}</Text>
+      <Rating recipeId={item.idMeal} />
+    </TouchableOpacity>
+  );
+
   return (
     <FlatList
       data={recipes}
+      renderItem={renderItem}
       keyExtractor={(item) => item.idMeal}
-      renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => onSelect(item)}>
-          <Text style={styles.recipe}>{item.strMeal}</Text>
-        </TouchableOpacity>
-      )}
     />
   );
 }
 
 const styles = StyleSheet.create({
-  recipe: { fontSize: 18, padding: 10, borderBottomWidth: 1 }
+  recipeItem: { padding: 10, borderBottomWidth: 1, borderColor: '#ccc' },
+  recipeName: { fontSize: 18, fontWeight: 'bold' }
 });
