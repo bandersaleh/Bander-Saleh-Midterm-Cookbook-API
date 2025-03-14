@@ -1,8 +1,9 @@
 // App.js
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import MainAppContainer from './components/MainAppContainer';
+import MainAppContainer from './components/MainAppContainer'; // Import MainAppContainer Component
 
+// Run initial App's function
 export default function App() {
   return <MainAppContainer />;
 }

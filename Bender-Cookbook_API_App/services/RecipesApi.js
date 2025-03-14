@@ -1,5 +1,8 @@
 // services/RecipesApi.js
+
+// External API: https://www.themealdb.com/api.php
 export const fetchRecipes = async (ingredient) => {
+    // If function is called, fetch API results
     try {
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
       const data = await response.json();
@@ -18,7 +21,7 @@ export const fetchRecipes = async (ingredient) => {
   
       return detailedMeals;
     } catch (error) {
-      console.error("Error fetching recipes:", error);
+      console.error("Error fetching recipes:", error); // Log any errors that occur during the fetch process
       return [];
     }
   };
