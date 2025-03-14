@@ -1,4 +1,4 @@
-// components/RecipeList.js
+// ./components/RecipeList.js
 import React from 'react';
 import { FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
